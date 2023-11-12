@@ -1,0 +1,25 @@
+version: '4.19'
+
+
+services:
+  app:
+      build: .
+      container_name: app
+      volumes:
+        - .:/app
+      command: sh -c "python3 main.py"
+      env_file:
+        - .env
+      ports:
+        - 8000:8000
+      depends_on:
+        - mongo
+
+
+  mongo:
+      container_name: mongo
+      image: mongo:latest
+      env_file:
+        - .env
+      ports:
+        - 27017:27017
